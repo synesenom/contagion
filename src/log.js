@@ -17,8 +17,12 @@ module.exports = (() => {
     return `${padded(h)}:${padded(m)}:${padded(s)}`
   }
 
+  function log(type, color, msg) {
+    console.log(color(`${type} [${formatElapsedTime(Date.now() - _.start)}]: ${msg}`))
+  }
+
   return {
-    e: message => console.log(chalk.red(`ERRO [${formatElapsedTime(Date.now() - _.start)}]: ${message}`)),
-    i: message => console.log(chalk.white(`INFO [${formatElapsedTime(Date.now() - _.start)}]: ${message}`))
+    e: message => log('ERRO', chalk.red, message),
+    i: message => log('INFO', chalk.white, message)
   }
 })()
