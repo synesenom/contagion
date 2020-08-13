@@ -1,0 +1,10 @@
+{
+  "name": "contagion",
+  "version": "1.0.0",
+  "description": "Simple yet flexible compartment model for epidemic simulations",
+  "author": {
+    "name": "Enys Mones",
+    "email": "enys.mones@gmail.com",
+    "url": "enysmones.com"
+  }
+}
