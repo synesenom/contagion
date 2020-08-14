@@ -20,6 +20,13 @@ module.exports = (() => {
    * @param {number} x Number to format.
    * @return {string} The padded string representing the number.
    * @private
+   * @example
+   *
+   * padded(3)
+   * // => '03'
+   *
+   * padded(12)
+   * // => '12'
    */
   function padded (x) {
     return `${Math.floor(x / 10)}${x % 10}`
@@ -33,6 +40,13 @@ module.exports = (() => {
    * @param {number} ms Time elapsed from the time the module was imported in milliseconds.
    * @return {string} The elapsed time in HH:mm:SS format.
    * @private
+   * @example
+   *
+   * formatElapsedTime(12000)
+   * // => '00:00:12'
+   *
+   * formatElapsedTime(1234567)
+   * // => '03:25:45'
    */
   function formatElapsedTime (ms) {
     ms = Math.floor(ms / 1000)
