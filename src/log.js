@@ -65,6 +65,10 @@ module.exports = (() => {
    * @param {chalk.Chalk} color Coloring function (using chalk).
    * @param {string} msg Message to show.
    * @private
+   * @example
+   *
+   * message('INFO', chalk.white, 'A message')
+   * // => '\u001b[37mINFO [00:00:00]: A message\u001b[39m\n'
    */
   function message(type, color, msg) {
     console.log(color(`${type} [${formatElapsedTime(Date.now() - _.start)}]: ${msg}`))
@@ -78,6 +82,10 @@ module.exports = (() => {
      * @method e
      * @methodOf log
      * @param {string} msg Message content.
+     * @example
+     *
+     * log.e('Awful error')
+     * // => '\u001b[31mERRO [00:01:23]: Awful error\u001b[39m\n'
      */
     e: msg => message('ERRO', chalk.red, msg),
 
@@ -87,6 +95,10 @@ module.exports = (() => {
      * @method i
      * @methodOf log
      * @param {string} msg Message content.
+     * @example
+     *
+     * log.i('Success!')
+     * // => '\u001b[37mINFO [08:32:11]: Success!\u001b[39m\n'
      */
     i: msg => message('INFO', chalk.white, msg)
   }
