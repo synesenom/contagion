@@ -57,21 +57,21 @@ module.exports = {
    * io.writeCSV([{a: 1, b: 'foo'}, {a: 2, b: 'bar'}])
    */
   writeCSV: (data, path, append = false) => new Promise((resolve, reject) => {
+    if (data.length === 0) {
+      reject('Error: data is empty, nothing is written.')
+    }
+
     if (typeof path === 'undefined' || path === null) {
       console.log(csvFormat(data))
       process.on('SIGPIPE', process.exit)
     } else {
-      if (data.length > 0) {
-        createObjectCsvWriter({
-          path,
-          header: Object.keys(data[0]).map(d => ({id: d, title: d})),
-          append
-        }).writeRecords(data)
-          .then(resolve)
-          .catch(reject)
-      } else {
-        reject('Error: data is empty, nothing is written.')
-      }
+      createObjectCsvWriter({
+        path,
+        header: Object.keys(data[0]).map(d => ({id: d, title: d})),
+        append
+      }).writeRecords(data)
+        .then(resolve)
+        .catch(reject)
     }
-  }),
+  })
 }

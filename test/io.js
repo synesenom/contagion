@@ -3,7 +3,7 @@ const { describe, it } = require('mocha')
 const stdin = require('mock-stdin').stdin();
 const stdout = require('test-console').stdout
 const io = require('../src/io')
-const { readFileSync, unlinkSync } = require('fs')
+const { existsSync, readFileSync, unlinkSync } = require('fs')
 
 
 describe('io', () => {
@@ -38,13 +38,13 @@ describe('io', () => {
     const path = './test/data/io.write-csv.csv'
 
     it('should write a CSV file', async () => {
-      unlinkSync(path)
+      if (existsSync(path)) unlinkSync(path)
       await io.writeCSV([{a: 1, b: 'foo', c: 1.2}, {a: 2, b: 'bar', c: 2.3}], path)
       assert.deepEqual(readFileSync(path, {encoding: 'utf8'}), 'a,b,c\n1,foo,1.2\n2,bar,2.3\n')
     })
 
     it('should append data to a CSV file', async () => {
-      unlinkSync(path)
+      if (existsSync(path)) unlinkSync(path)
       await io.writeCSV([{a: 1, b: 'foo', c: 1.2}], path)
       await io.writeCSV([{a: 2, b: 'bar', c: 2.3}], path, true)
       assert.deepEqual(readFileSync(path, {encoding: 'utf8'}), 'a,b,c\n1,foo,1.2\n2,bar,2.3\n')
