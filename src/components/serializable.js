@@ -43,5 +43,6 @@ module.exports = (_, api) => {
     }
   })
 
+  // Return private members and public API.
   return { _, api }
 }
