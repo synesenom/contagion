@@ -1,3 +1,6 @@
+const Serializable = require('./components/serializable')
+
+
 /**
  * Module implementing a temporal network based compartment model.
  *
@@ -8,17 +11,14 @@ module.exports = () => {
   const IDS = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
 
   // Private members.
-  let _ = {
+  const {_, api} = Serializable({
     simulation: {
       dt: 1,
       k: 1,
       states: {},
       transitions: []
     }
-  }
-
-  // Public API.
-  let api = {}
+  })
 
   /**
    * Sets the physical time resolution in days.
@@ -79,39 +79,6 @@ module.exports = () => {
       after: states[1],
       p: scale(rate, _.simulation.dt, _.simulation.k)
     })
-    return api
-  }
-
-  /**
-   * Returns the network simulation as a serialized string.
-   *
-   * @method serialize
-   * @methodOf network
-   * @return {string} The network simulation serialized to a string.
-   * @example
-   *
-   * const net = network()
-   * net.serialize()
-   * // => '{"simulation":{"dt":1,"k":1,"states":{},"transitions":[]}}'
-   */
-  api.serialize = () => {
-    const { simulation } = _
-    return JSON.stringify({
-      simulation
-    })
-  }
-
-  /**
-   * De-serializes a previously serialized network simulation.
-   *
-   * @method deserialize
-   * @methodOf network
-   * @param {string} dump String representation of the network simulation.
-   * @return {network} Reference to the network's API.
-   */
-  api.deserialize = dump => {
-    const { simulation } = JSON.parse(dump)
-    _.simulation = simulation
     return api
   }
 
