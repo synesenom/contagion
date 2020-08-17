@@ -1,6 +1,7 @@
 const compose = require('./compose')
 const Logger = require('./components/logger')
 const Serializable = require('./components/serializable')
+const States = require('./components/states')
 
 
 /**
@@ -10,21 +11,18 @@ const Serializable = require('./components/serializable')
  * @function Network
  */
 module.exports = () => {
-  // State IDs.
-  const IDS = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-
   // Private members.
-  const { _, api } = compose({
+  const { _, api } = compose([
+    Logger,
+    Serializable,
+    States
+  ], {
     config: {
       dt: 1,
       k: 1,
-      states: {},
       transitions: []
     }
-  }, {},
-    Logger,
-    Serializable
-  )
+  })
 
   /**
    * Sets the physical time resolution in days.
@@ -40,25 +38,6 @@ module.exports = () => {
    */
   api.dt = dt => {
     _.config.dt = dt
-    return api
-  }
-
-  /**
-   * Adds a state (a compartment) to the config.
-   *
-   * @method state
-   * @methodOf Network
-   * @param {string} name Name of the state to add.
-   * @return {Network} Reference to the network's API.
-   * @example
-   *
-   * // Add states 'S', 'I' and 'R'.
-   * const net = network().state('S')
-   *               .state('I')
-   *               .state('R')
-   */
-  api.state = name => {
-    _.config.states[name] = IDS[Object.keys(_.config.states).length]
     return api
   }
 

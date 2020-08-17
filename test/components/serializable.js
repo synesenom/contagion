@@ -1,11 +1,12 @@
 const { assert } = require('chai')
 const { describe, it } = require('mocha')
+const compose = require('../../src/compose')
 const Serializable = require('../../src/components/serializable')
 
 
 // Dummy mixin for testing purposes.
 const SerializableTest = () => {
-  const {_, api} = Serializable({
+  const {_, api} = compose([Serializable], {
     config: {
       a: 'foo',
       b: 2

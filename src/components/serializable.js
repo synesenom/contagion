@@ -3,11 +3,11 @@
  * subject to the serialization operations.
  *
  * @function Serializable
- * @param {Object} _ Private members of the parent mixin.
- * @param {Object} [api = {}] Public API of the parent mixin.
+ * @param {Object?} _ Private members of the parent mixin.
+ * @param {Object?} api Public API of the parent mixin.
  * @return {Object} Object containing the private members and the public API of the parent mixin.
  */
-module.exports = (_, api = {}) => {
+module.exports = (_, api) => {
   // Assign methods to public API.
   api = Object.assign(api, {
     /**
@@ -33,7 +33,7 @@ module.exports = (_, api = {}) => {
      * @method deserialize
      * @methodOf Serializable
      * @param {string} dump String representation of the current config.
-     * @return {Object} Reference to the config's API.
+     * @return {Object} Reference to the mixin's API.
      */
     deserialize (dump) {
       _.config = JSON.parse(dump)

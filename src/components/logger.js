@@ -73,7 +73,7 @@ module.exports = (_, api) => {
   }
 
   // Assign private members.
-  _ = Object.assign(_ || {}, {
+  _ = Object.assign(_, {
     log: {
       /**
        * Prints an error message.
@@ -102,9 +102,6 @@ module.exports = (_, api) => {
       i: msg => log('INFO', chalk.white, msg)
     }
   })
-
-  // Do nothing with public API, just add empty object if undefined.
-  api = api || {}
 
   // Return private members and public API.
   return { _, api }

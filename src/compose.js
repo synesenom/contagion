@@ -1,4 +1,4 @@
-module.exports = function (_, api, ...components) {
+module.exports = function (components, _ = {}, api = {}) {
   return components.reduce((obj, component) => {
     const mixin = component(obj._, obj.api)
     return {

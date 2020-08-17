@@ -2,12 +2,13 @@ const { assert } = require('chai')
 const { describe, it } = require('mocha')
 const stdout = require('test-console').stdout
 const { useFakeTimers } = require('sinon')
+const compose = require('../../src/compose')
 const Logger = require('../../src/components/logger')
 
 
 // Dummy mixin for testing purposes.
 const LoggerTest = () => {
-  const {_, api} = Logger()
+  const {_, api} = compose([Logger])
 
   api.e = _.log.e
   api.i = _.log.i
