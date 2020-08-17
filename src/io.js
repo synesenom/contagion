@@ -58,7 +58,7 @@ module.exports = {
    */
   writeCSV: (data, path, append = false) => new Promise((resolve, reject) => {
     if (data.length === 0) {
-      reject('Error: data is empty, nothing is written.')
+      return reject('Error: data is empty, nothing is written.')
     }
 
     if (typeof path === 'undefined' || path === null) {

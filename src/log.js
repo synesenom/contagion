@@ -5,7 +5,7 @@ const chalk = require('chalk')
  *
  * @module log
  */
-module.exports = (() => {
+module.exports = () => {
   // Private members.
   const _ = {
     // Start timestamp.
@@ -102,4 +102,4 @@ module.exports = (() => {
      */
     i: msg => message('INFO', chalk.white, msg)
   }
-})()
+}
