@@ -48,7 +48,8 @@
   "scripts": {
     "standard": "./node_modules/.bin/standard --fix src/**/*.js",
     "test:io": "./node_modules/.bin/_mocha test/io.js",
-    "test:log": "./node_modules/.bin/_mocha test/log.js",
+    "test:components.logger": "./node_modules/.bin/_mocha test/components/logger.js",
+    "test:components.serializable": "./node_modules/.bin/_mocha test/components/serializable.js",
     "test:network": "./node_modules/.bin/_mocha test/network.js",
     "test": "./node_modules/.bin/_mocha --reporter min",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive",

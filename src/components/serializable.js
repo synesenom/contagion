@@ -1,44 +1,42 @@
 /**
- * Component implementing serialization functionalities.
+ * Component implementing serialization functionalities. The parent mixin must have a config private property that is
+ * subject to the serialization operations.
  *
  * @function Serializable
  * @param {Object} _ Private members of the parent mixin.
- * @param {Object} api Public API of the parent mixin.
+ * @param {Object} [api = {}] Public API of the parent mixin.
  * @return {Object} Object containing the private members and the public API of the parent mixin.
  */
-module.exports = (_, api) => {
+module.exports = (_, api = {}) => {
   // Assign methods to public API.
-  api = Object.assign(api || {}, {
+  api = Object.assign(api, {
     /**
-     * Returns a simulation as a serialized string.
+     * Returns a config as a serialized string.
      *
      * @method serialize
      * @methodOf Serializable
-     * @return {string} The current simulation serialized to a string.
+     * @return {string} The current config serialized to a string.
      * @example
      *
      * const net = network()
      * net.serialize()
-     * // => '{"simulation":{"dt":1,"k":1,"states":{},"transitions":[]}}'
+     * // => '{"config":{"dt":1,"k":1,"states":{},"transitions":[]}}'
      */
     serialize () {
-      const { simulation } = _
-      return JSON.stringify({
-        simulation
-      })
+      const { config } = _
+      return JSON.stringify(config)
     },
 
     /**
-     * De-serializes a previously serialized simulation.
+     * De-serializes a previously serialized config.
      *
      * @method deserialize
      * @methodOf Serializable
-     * @param {string} dump String representation of the current simulation.
-     * @return {Object} Reference to the simulation's API.
+     * @param {string} dump String representation of the current config.
+     * @return {Object} Reference to the config's API.
      */
     deserialize (dump) {
-      const { simulation } = JSON.parse(dump)
-      _.simulation = simulation
+      _.config = JSON.parse(dump)
       return api
     }
   })
