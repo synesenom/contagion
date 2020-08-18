@@ -1,6 +1,7 @@
 const { assert } = require('chai')
 const { describe, it } = require('mocha')
 const stdout = require('test-console').stdout
+const { useFakeTimers } = require('sinon')
 const Network = require('../src/network')
 
 
@@ -27,12 +28,15 @@ describe('network', () => {
       const inspect = stdout.inspect();
       await Network().load(path)
       inspect.restore();
+      const now = Date.now()
+      const clock = useFakeTimers(now);
       assert.deepEqual(inspect.output, [
         `\u001b[37mINFO [00:00:00]: Loading network from: ${path}\u001b[39m\n`,
         `\u001b[37mINFO [00:00:00]:   number of links: 10\u001b[39m\n`,
         `\u001b[37mINFO [00:00:00]:   number of nodes: 4\u001b[39m\n`,
         `\u001b[37mINFO [00:00:00]:   number of bins:  5\u001b[39m\n`
-      ]);
+      ])
+      clock.restore()
     })
   })
 
