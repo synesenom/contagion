@@ -6,7 +6,7 @@ const Network = require('../src/network')
 describe('network', () => {
   describe('.deserialize', () => {
     it('should parse serialized dump correctly', () => {
-      const dump = '{"dt":123,"k":10,"transitions":[{"b":"bar"}],"states":{"a":"foo"}}'
+      const dump = '{"k":10,"states":{"a":"foo"},"dt":123,"transitions":[{"b":"bar"}]}'
       assert.equal(Network().deserialize(dump).serialize(), dump)
     })
   })
@@ -15,7 +15,7 @@ describe('network', () => {
     it('should update the time resolution', () => {
       assert.equal(
         Network().dt(123).serialize(),
-        '{"dt":123,"k":1,"transitions":[],"states":{}}'
+        '{"k":1,"states":{},"dt":123,"transitions":[]}'
       )
     })
   })
@@ -24,7 +24,7 @@ describe('network', () => {
     it('should add states to the config states', () => {
       assert.equal(
         Network().state('a').state('b').state('c').serialize(),
-        '{"dt":1,"k":1,"transitions":[],"states":{"a":2,"b":3,"c":5}}'
+        '{"k":1,"states":{"a":2,"b":3,"c":5},"dt":1,"transitions":[]}'
       )
     })
   })
@@ -36,14 +36,14 @@ describe('network', () => {
           .transition('infection', [['s', 'i'], ['i', 'i']], 0.1)
           .transition('recovery', [['i'], ['r']], 2, (p, dt) => dt / p)
           .serialize(),
-      '{"dt":1,"k":1,"transitions":[{"name":"infection","before":["s","i"],"after":["i","i"],"p":0.1},{"name":"recovery","before":["i"],"after":["r"],"p":0.5}],"states":{}}'
+      '{"k":1,"states":{},"dt":1,"transitions":[{"name":"infection","before":["s","i"],"after":["i","i"],"p":0.1},{"name":"recovery","before":["i"],"after":["r"],"p":0.5}]}'
       )
     })
   })
 
   describe('.serialize', () => {
     it('should dump the network config as a string', () => {
-      assert.deepEqual(Network().serialize(), '{"dt":1,"k":1,"transitions":[],"states":{}}')
+      assert.deepEqual(Network().serialize(), '{"k":1,"states":{},"dt":1,"transitions":[]}')
     })
   })
 })

@@ -1,7 +1,8 @@
 /**
- * Component implementing various states (compartments) for a simulation.
+ * Component implementing various states (compartments) for a simulation. States are stored under {config.states} of
+ * the private members. If the path does not exist, it is added by the component.
  *
- * @function States
+ * @function State
  */
 module.exports = (_, api) => {
   // State IDs.
@@ -18,7 +19,7 @@ module.exports = (_, api) => {
      * Adds a state (a compartment) to the mixin.
      *
      * @method state
-     * @methodOf States
+     * @methodOf State
      * @param {string} name Name of the state to add.
      * @return {Object} Reference to the mixin's API.
      * @example

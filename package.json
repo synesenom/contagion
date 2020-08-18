@@ -50,6 +50,7 @@
     "test:io": "./node_modules/.bin/_mocha test/io.js",
     "test:components.logger": "./node_modules/.bin/_mocha test/components/logger.js",
     "test:components.serializable": "./node_modules/.bin/_mocha test/components/serializable.js",
+    "test:components.states": "./node_modules/.bin/_mocha test/components/state.js",
     "test:network": "./node_modules/.bin/_mocha test/network.js",
     "test": "./node_modules/.bin/_mocha --reporter min",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive",

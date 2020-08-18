@@ -20,13 +20,13 @@ describe('Serializable', () => {
   describe('.deserialize', () => {
     it('should parse serialized dump correctly', () => {
       const dump = '{"a":"bar","b":3}'
-      assert.deepEqual(SerializableTest().deserialize(dump).serialize(), dump)
+      assert.equal(SerializableTest().deserialize(dump).serialize(), dump)
     })
   })
 
   describe('.serialize', () => {
     it('should return the mixin config as a string', () => {
-      assert.deepEqual(SerializableTest().serialize(), '{"a":"foo","b":2}')
+      assert.equal(SerializableTest().serialize(), '{"a":"foo","b":2}')
     })
   })
 })

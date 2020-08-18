@@ -1,6 +1,6 @@
 /**
- * Component implementing serialization functionalities. The parent mixin must have a config private property that is
- * subject to the serialization operations.
+ * Component implementing serialization functionalities. Only the private members under the {config} property are
+ * subject to serialization. If this property does not exist, it is added by the component.
  *
  * @function Serializable
  * @param {Object?} _ Private members of the parent mixin.
@@ -8,6 +8,8 @@
  * @return {Object} Object containing the private members and the public API of the parent mixin.
  */
 module.exports = (_, api) => {
+  _.config = _.config || {}
+
   // Assign methods to public API.
   api = Object.assign(api, {
     /**
