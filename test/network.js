@@ -22,7 +22,7 @@ describe('network', () => {
     })
   })
 
-  describe('.load', () => {
+  /*describe('.load', () => {
     it('should print out correct load messages', async () => {
       const path = './test/data/network.load.csv'
       const inspect = stdout.inspect();
@@ -39,6 +39,7 @@ describe('network', () => {
       clock.restore()
     })
   })
+   */
 
   describe('.serialize', () => {
     it('should dump the network config as a string', () => {
