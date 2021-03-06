@@ -5,8 +5,9 @@ const Serializable = require('./components/serializable')
 const States = require('./components/state')
 const TimeStep = require('./components/time-step')
 const Transition = require('./components/transition')
+const load = require('./network/load')
+const extractNodes = require('./network/extract-nodes')
 const extractLinks = require('./network/extract-links')
-
 
 /**
  * Mixin implementing a temporal network based compartment model. Implements the following components: Serializable,
@@ -31,17 +32,11 @@ module.exports = () => {
     _.log.i(`Loading network from: ${path}`)
 
     // Load and map data.
-    let data = await readCSV(path).catch(_.log.e)
-    data = data.map(d => ({
-      ts: +d['ts'],
-      n1: +d['n1'],
-      n2: +d['n2']
-    }))
+    let data = load(path).catch(_.log.e)
     _.log.i(`  number of links: ${data.length}`)
 
     // Extract nodes.
-    _.graph.nodes = [...new Set(data.map(d => [d.n1, d.n2]).flat())]
-      .sort((a, b) => a - b)
+    _.graph.nodes = extractNodes(data)
     _.log.i(`  number of nodes: ${_.graph.nodes.length}`)
 
     // Extract links.
