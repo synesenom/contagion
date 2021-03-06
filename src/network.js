@@ -1,4 +1,3 @@
-const { nest } = require('d3-collection')
 const { readCSV } = require('./io')
 const compose = require('./compose')
 const Logger = require('./components/logger')
@@ -6,6 +5,7 @@ const Serializable = require('./components/serializable')
 const States = require('./components/state')
 const TimeStep = require('./components/time-step')
 const Transition = require('./components/transition')
+const extractLinks = require('./network/extract-links')
 
 
 /**
@@ -45,16 +45,7 @@ module.exports = () => {
     _.log.i(`  number of nodes: ${_.graph.nodes.length}`)
 
     // Extract links.
-    _.graph.links = new Map(nest()
-      .key(d => d.ts)
-      .entries(data)
-      .map(d => [
-        +d.key,
-        d.values.map(v => ({
-          n1: Math.min(v.n1, v.n2),
-          n2: Math.max(v.n1, v.n2)
-        }))
-      ]))
+    _.graph.links = extractLinks(data)
     _.log.i(`  number of bins:  ${_.graph.links.size}`)
 
     return api

@@ -47,6 +47,7 @@
     "sourceMap": false
   },
   "scripts": {
+    "dev": "./node_modules/.bin/nodemon --watch src --watch test --exec 'npm run-script coverage'",
     "standard": "./node_modules/.bin/standard --fix src/**/*.js",
     "test:io": "./node_modules/.bin/_mocha test/io.js",
     "test:components.logger": "./node_modules/.bin/_mocha test/components/logger.js",
